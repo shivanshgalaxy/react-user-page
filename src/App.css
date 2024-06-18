@@ -1,0 +1,15 @@
+.input-form-container {
+    max-width: 40rem; /* Adjust this value as needed */
+    margin: auto;
+}
+
+.user-list {
+    display: flex;
+    list-style: none;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.user-list li {
+    text-align: center;
+}
