@@ -1,18 +1,23 @@
 import { ChangeEvent, FormEvent, useState } from "react";
+import {User} from "../App";
 
 interface Props {
-  onEmailChange: (email: string) => void;
-  onNameChange: (firstName: string) => void;
+  onUserChange: (user: User) => void;
 }
 
-function InputForm({ onEmailChange, onNameChange }: Props) {
+function InputForm({ onUserChange }: Props) {
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
-    onEmailChange(email);
-    onNameChange(firstName);
+
+    const newUser: User = {
+      email: email,
+      first_name: firstName,
+    };
+
+    onUserChange(newUser);
   };
 
   const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {

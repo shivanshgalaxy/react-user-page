@@ -4,50 +4,39 @@ import { useState } from "react";
 import ShowUsers from "./components/ShowUsers";
 import GetUsers from "./components/GetUsers";
 
-interface User {
-    email: string;
-    first_name: string;
+export interface User {
+  email: string;
+  first_name: string;
 }
 
 function App() {
-  const [email, setEmail] = useState<string[]>([]);
+  const [users, setUser] = useState<User[]>([]);
 
-  const [firstName, setName] = useState<string[]>([]);
-
-  const [data, setData] = useState([])
-
-  const onEmailChange = (newEmail: string) => {
-    setEmail((oldEmailList) => [...oldEmailList, newEmail]);
-    console.log(email);
-  };
-
-  const onNameChange = (newName: string) => {
-    setName((oldNameList) => [...oldNameList, newName]);
-    console.log(firstName);
+  const onUserChange = (newUser: User) => {
+    setUser((oldUserList) => [...oldUserList, newUser]);
   };
 
   const onGetUserClick = () => {
     fetch("https://reqres.in/api/users")
-        .then(res => res.json())
-        .then(data => {
-            data.data.map((item: User) => {
-                setEmail((oldEmailList) => [...oldEmailList, item.email]);
-                setName((oldNameList) => [...oldNameList, item.first_name]);
-                console.log(item.first_name);
-                console.log(item.email);
-            });
+      .then((res) => res.json())
+      .then((data) => {
+        data.data.map((item: User) => {
+            const newUser: User = {
+                email: item.email,
+                first_name: item.first_name,
+            };
+            setUser((oldUserList) => [...oldUserList, newUser])
+          console.log(item.first_name);
+          console.log(item.email);
         });
+      });
   };
 
-    console.log({data});
   return (
     <>
       <div className="input-form-container mt-3 mb-5">
         <h2>Enter information here</h2>
-        <InputForm
-          onEmailChange={onEmailChange}
-          onNameChange={onNameChange}
-        ></InputForm>
+        <InputForm onUserChange={onUserChange}></InputForm>
       </div>
 
       <div className="input-form-container mb-5">
@@ -57,7 +46,7 @@ function App() {
       </div>
 
       <div className="input-form-container">
-        <ShowUsers emailList={email} firstNameList={firstName}></ShowUsers>
+        <ShowUsers userList={users}></ShowUsers>
       </div>
     </>
   );

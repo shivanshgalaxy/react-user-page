@@ -1,19 +1,20 @@
+import {User} from "../App";
+
 interface Props {
-  emailList: string[];
-  firstNameList: string[];
+  userList: User[];
 }
 
-const ShowUsers= ({ emailList, firstNameList }: Props) => {
+const ShowUsers= ({ userList }: Props) => {
   return (
     <>
       <h2>Our users:</h2>
-      {emailList.length === 0 && <div>There is no user yet :(</div>}
+      {userList.length === 0 && <div>There are no users yet :(</div>}
 
       <ul className="user-list">
-        {emailList.map((email, index) => (
+        {userList.map((user) => (
           <li>
-            <div>{email}</div>
-            <div>{firstNameList[index]}</div>
+            <div>{user.email}</div>
+            <div>{user.first_name}</div>
           </li>
         ))}
       </ul>
