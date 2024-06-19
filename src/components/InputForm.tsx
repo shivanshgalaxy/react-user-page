@@ -3,9 +3,10 @@ import {User} from "../App";
 
 interface Props {
   onUserChange: (user: User) => void;
+  children: string;
 }
 
-function InputForm({ onUserChange }: Props) {
+function InputForm({ onUserChange, children }: Props) {
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
 
@@ -51,7 +52,7 @@ function InputForm({ onUserChange }: Props) {
         />
       </div>
       <button type="submit" className="btn btn-primary">
-        Submit
+        {children}
       </button>
     </form>
   );

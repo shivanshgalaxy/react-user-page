@@ -1,4 +1,5 @@
 import {User} from "../App";
+import {useState} from "react";
 
 interface Props {
   userList: User[];
@@ -12,7 +13,7 @@ const ShowUsers= ({ userList }: Props) => {
 
       <ul className="user-list">
         {userList.map((user) => (
-          <li>
+          <li key={user.email}>
             <div>{user.email}</div>
             <div>{user.first_name}</div>
           </li>

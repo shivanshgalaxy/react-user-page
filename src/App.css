@@ -8,6 +8,7 @@
     list-style: none;
     justify-content: space-around;
     flex-wrap: wrap;
+    gap: 5px;
 }
 
 .user-list li {
