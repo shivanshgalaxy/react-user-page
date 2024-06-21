@@ -3,10 +3,11 @@ import { User } from "../App";
 
 interface Props {
   onUserChange: (user: User) => void;
+  onClick: () => void;
   children: string;
 }
 
-function InputForm({ onUserChange, children }: Props) {
+function SignUpForm({ onUserChange, onClick, children }: Props) {
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
 
@@ -19,6 +20,7 @@ function InputForm({ onUserChange, children }: Props) {
     };
 
     onUserChange(newUser);
+    onClick();
   };
 
   const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -58,4 +60,4 @@ function InputForm({ onUserChange, children }: Props) {
   );
 }
 
-export default InputForm;
+export default SignUpForm;

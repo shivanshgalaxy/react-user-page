@@ -1,7 +1,7 @@
 function About() {
   return (
     <>
-      <div className="container d-flex  align-items-center flex-column">
+      <div className="container d-flex align-items-center flex-column mt-5">
         <div>
           <h1>Test out a basic user login flow</h1>
         </div>
