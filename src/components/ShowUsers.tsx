@@ -1,5 +1,4 @@
 import {User} from "../App";
-import {useState} from "react";
 
 interface Props {
   userList: User[];

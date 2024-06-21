@@ -1,5 +1,5 @@
 import { ChangeEvent, FormEvent, useState } from "react";
-import {User} from "../App";
+import { User } from "../App";
 
 interface Props {
   onUserChange: (user: User) => void;
@@ -32,23 +32,23 @@ function InputForm({ onUserChange, children }: Props) {
   return (
     <form className="mt-3" onSubmit={handleSubmit}>
       <div className="mb-3">
-        <label className="form-label">Email address</label>
         <input
           type="email"
           className="form-control"
           id="inputEmail1"
           value={email}
           onChange={handleEmailChange}
+          placeholder="Email"
         />
       </div>
       <div className="mb-3">
-        <label className="form-label">Name</label>
         <input
           type="text"
           className="form-control"
           id="inputUsername"
           value={firstName}
           onChange={handleNameChange}
+          placeholder="Name"
         />
       </div>
       <button type="submit" className="btn btn-primary">
