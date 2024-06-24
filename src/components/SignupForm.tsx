@@ -1,5 +1,6 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import { User } from "../App";
+import { Form, Button } from "react-bootstrap";
 
 interface Props {
   onUserChange: (user: User) => void;
@@ -32,31 +33,27 @@ function SignupForm({ onUserChange, onClick, children }: Props) {
   };
 
   return (
-    <form className="mt-3" onSubmit={handleSubmit}>
-      <div className="mb-3">
-        <input
+    <Form className="mt-3" onSubmit={handleSubmit}>
+      <Form.Group className="mb-3" controlId="inputEmail1">
+        <Form.Control
           type="email"
-          className="form-control"
-          id="inputEmail1"
           value={email}
           onChange={handleEmailChange}
           placeholder="Email"
         />
-      </div>
-      <div className="mb-3">
-        <input
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="inputUsername">
+        <Form.Control
           type="text"
-          className="form-control"
-          id="inputUsername"
           value={firstName}
           onChange={handleNameChange}
           placeholder="Name"
         />
-      </div>
-      <button type="submit" className="btn btn-primary">
+      </Form.Group>
+      <Button type="submit" variant="primary">
         {children}
-      </button>
-    </form>
+      </Button>
+    </Form>
   );
 }
 
