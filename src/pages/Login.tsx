@@ -1,11 +1,13 @@
 import React, { useContext, useState } from "react";
-import SignUpForm from "../components/SignUpForm";
 import { UserContext, User } from "../App";
+import SignupForm from "../components/SignupForm";
 import Loading from "../components/Loading";
+import SignupSuccessModal from "../components/SignupSuccessModal";
 
 function Login() {
   const { users, setUser } = useContext(UserContext);
   const [isLoading, setIsLoading] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   const handleUserChange = (newUser: User) => {
     setUser((oldUserList) => [...oldUserList, newUser]);
@@ -15,7 +17,10 @@ function Login() {
     setIsLoading(true);
     await new Promise((resolve) => setTimeout(resolve, 1000));
     setIsLoading(false);
+    setShowModal(true); // Show the modal when the signup process is finished
   };
+
+  const handleClose = () => setShowModal(false); // Hide the modal when it's closed
 
   if (isLoading) {
     return <Loading />;
@@ -24,7 +29,8 @@ function Login() {
   return (
     <div className="input-form-container mt-3 mb-5">
       <h2>Register</h2>
-      <SignUpForm onUserChange={handleUserChange} onClick={handleSignup}>Sign up</SignUpForm>
+      <SignupForm onUserChange={handleUserChange} onClick={handleSignup}>Sign up</SignupForm>
+      <SignupSuccessModal show={showModal} onHide={handleClose} />
     </div>
   );
 }

@@ -7,7 +7,7 @@ interface Props {
   children: string;
 }
 
-function SignUpForm({ onUserChange, onClick, children }: Props) {
+function SignupForm({ onUserChange, onClick, children }: Props) {
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
 
@@ -60,4 +60,4 @@ function SignUpForm({ onUserChange, onClick, children }: Props) {
   );
 }
 
-export default SignUpForm;
+export default SignupForm;

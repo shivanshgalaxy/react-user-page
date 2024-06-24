@@ -6,7 +6,7 @@ function About() {
           <h1>Test out a basic user login flow</h1>
         </div>
         <div>
-            <p className="fs-5">Sign up to add a user!</p>
+          <p className="fs-5">Sign up to add a user!</p>
         </div>
       </div>
     </>
