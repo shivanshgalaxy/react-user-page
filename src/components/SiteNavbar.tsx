@@ -1,7 +1,11 @@
 import { Link } from "react-router-dom";
 import { Navbar, Nav, Container, NavDropdown } from "react-bootstrap";
+import {useContext} from "react";
+import {UserContext} from "../App";
+import Profile from "./Profile";
 
 function SiteNavbar() {
+  const { isLogged } = useContext(UserContext)
     return (
       <Navbar
         bg="dark"
@@ -25,14 +29,13 @@ function SiteNavbar() {
               <Nav.Link as={Link} to="/" active>
                 Home
               </Nav.Link>
-              <Nav.Link as={Link} to="/profile" active>
-                Profile
-              </Nav.Link>
-            </Nav>
-            <Nav className="ml-auto">
+              {isLogged && <Profile></Profile>}
               <Nav.Link as={Link} to="/users" active>
                 View users
               </Nav.Link>
+            </Nav>
+            <Nav className="ml-auto">
+
               <Nav.Link as={Link} to="/login" active>
                 Sign up
               </Nav.Link>

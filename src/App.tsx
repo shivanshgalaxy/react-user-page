@@ -1,5 +1,4 @@
 import "./App.css";
-import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import React, {
   createContext,
@@ -16,11 +15,15 @@ import Profile from "./pages/Profile";
 interface UserContextType {
   users: User[];
   setUser: Dispatch<SetStateAction<User[]>>;
+  isLogged: boolean;
+  setLogged: Dispatch<SetStateAction<boolean>>;
 }
 
 export const UserContext = createContext<UserContextType>({
   users: [],
   setUser: () => {},
+  isLogged: false,
+  setLogged: () => {}
 });
 
 export interface User {
@@ -30,10 +33,16 @@ export interface User {
 
 function App() {
   const [users, setUser] = useState<User[]>([]);
+  const [isLogged, setLogged] = useState(false);
+
 
   useEffect(() => {
     const abortController = new AbortController();
     const signal = abortController.signal;
+    const isLogged = JSON.parse(localStorage.getItem('logged') || "{}");
+    if(isLogged) {
+      setLogged(isLogged === "true");
+    }
 
     const getUsers = async () => {
       try {
@@ -62,7 +71,7 @@ function App() {
 
   return (
     <Router>
-      <UserContext.Provider value={{ users, setUser }}>
+      <UserContext.Provider value={{ users, setUser, isLogged, setLogged }}>
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
