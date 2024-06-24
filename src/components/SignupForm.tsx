@@ -1,5 +1,5 @@
-import { ChangeEvent, FormEvent, useState } from "react";
-import { User } from "../App";
+import {ChangeEvent, FormEvent, useContext, useState} from "react";
+import {User, UserContext} from "../App";
 import { Form, Button } from "react-bootstrap";
 
 interface Props {
@@ -9,6 +9,7 @@ interface Props {
 }
 
 function SignupForm({ onUserChange, onClick, children }: Props) {
+  const { isLogged, setLogged } = useContext(UserContext)
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
 
@@ -20,6 +21,7 @@ function SignupForm({ onUserChange, onClick, children }: Props) {
       first_name: firstName,
     };
 
+    setLogged(true);
     onUserChange(newUser);
     onClick();
   };
