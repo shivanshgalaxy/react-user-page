@@ -1,13 +1,22 @@
-import React, { useContext, useState } from "react";
+import React, {useContext, useEffect, useState} from "react";
 import { UserContext, User } from "../App";
 import SignupForm from "../components/SignupForm";
 import Loading from "../components/Loading";
 import SignupSuccessModal from "../components/SignupSuccessModal";
+import { useNavigate } from "react-router-dom";
 
-function Login() {
+function Signup() {
   const { users, setUser } = useContext(UserContext);
   const [isLoading, setIsLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if(JSON.parse(localStorage.getItem("logged") || "{}") === true) {
+        console.log("redirecting")
+        navigate("/profile");
+    }
+  }, [navigate]);
 
   const handleUserChange = (newUser: User) => {
     setUser((oldUserList) => [...oldUserList, newUser]);
@@ -20,7 +29,10 @@ function Login() {
     setShowModal(true); // Show the modal when the signup process is finished
   };
 
-  const handleClose = () => setShowModal(false); // Hide the modal when it's closed
+  const handleClose = () => {
+    navigate("/profile");
+    setShowModal(false);
+  } // Hide the modal when it's closed
 
   if (isLoading) {
     return <Loading />;
@@ -35,4 +47,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Signup;

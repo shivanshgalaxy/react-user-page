@@ -20,7 +20,8 @@ function SignupForm({ onUserChange, onClick, children }: Props) {
       email: email,
       first_name: firstName,
     };
-
+    localStorage.setItem('firstName', JSON.stringify(firstName));
+    localStorage.setItem('email', JSON.stringify(email));
     setLogged(true);
     onUserChange(newUser);
     onClick();

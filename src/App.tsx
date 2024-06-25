@@ -7,7 +7,7 @@ import React, {
   SetStateAction, useEffect,
 } from "react";
 import Navbar from "./components/SiteNavbar";
-import Login from "./pages/Login";
+import Signup from "./pages/Signup";
 import Users from "./pages/Users";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
@@ -33,16 +33,14 @@ export interface User {
 
 function App() {
   const [users, setUser] = useState<User[]>([]);
-  const [isLogged, setLogged] = useState(false);
-
+  const [isLogged, setLogged] = useState<boolean>(() => {
+    const loggedStatus = localStorage.getItem('logged');
+    return loggedStatus === 'true';
+  });
 
   useEffect(() => {
     const abortController = new AbortController();
     const signal = abortController.signal;
-    const isLogged = JSON.parse(localStorage.getItem('logged') || "{}");
-    if(isLogged) {
-      setLogged(isLogged === "true");
-    }
 
     const getUsers = async () => {
       try {
@@ -69,13 +67,17 @@ function App() {
     };
   }, []);
 
+  useEffect(() => {
+    localStorage.setItem('logged', JSON.stringify(isLogged))
+  }, [isLogged]);
+
   return (
     <Router>
       <UserContext.Provider value={{ users, setUser, isLogged, setLogged }}>
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/login" element={<Signup />} />
           <Route path="/users" element={<Users />}></Route>
           <Route path="/profile" element={<Profile />}></Route>
         </Routes>
