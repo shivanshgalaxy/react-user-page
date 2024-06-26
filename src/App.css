@@ -1,15 +1,32 @@
 .input-form-container {
-    max-width: 40rem; /* Adjust this value as needed */
+    max-width: 45rem; /* Adjust this value as needed */
     margin: auto;
 }
 
+/*.user-list {*/
+/*    display: flex;*/
+/*    list-style: none;*/
+/*    justify-content: space-around;*/
+/*    flex-wrap: wrap;*/
+/*    gap: 5px;*/
+/*}*/
+
+/*.user-list li {*/
+/*    text-align: center;*/
+/*}*/
+
 .user-list {
-    display: flex;
-    list-style: none;
-    justify-content: space-around;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    list-style-type: none;
+    padding: 0;
 }
 
-.user-list li {
+.user-item {
     text-align: center;
+    border: 1px solid #ccc;
+    padding: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
 }
