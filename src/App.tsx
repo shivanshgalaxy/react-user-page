@@ -4,13 +4,16 @@ import React, {
   createContext,
   useState,
   Dispatch,
-  SetStateAction, useEffect,
+  SetStateAction,
+  useEffect,
 } from "react";
 import Navbar from "./components/SiteNavbar";
 import Signup from "./pages/Signup";
 import Users from "./pages/Users";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
+import { ToastContext } from "./ToastContext";
+import SignOutToast from "./components/SignOutToast";
 
 interface UserContextType {
   users: User[];
@@ -23,19 +26,20 @@ export const UserContext = createContext<UserContextType>({
   users: [],
   setUser: () => {},
   isLogged: false,
-  setLogged: () => {}
+  setLogged: () => {},
 });
 
 export interface User {
   email: string;
-  first_name: string;
+  firstName: string;
 }
 
 function App() {
   const [users, setUser] = useState<User[]>([]);
+  const [showToast, setShowToast] = useState(false);
   const [isLogged, setLogged] = useState<boolean>(() => {
-    const loggedStatus = localStorage.getItem('logged');
-    return loggedStatus === 'true';
+    const loggedStatus = localStorage.getItem("logged");
+    return loggedStatus === "true";
   });
 
   useEffect(() => {
@@ -44,20 +48,21 @@ function App() {
 
     const getUsers = async () => {
       try {
-        const response = await fetch("https://reqres.in/api/users", { signal });
+        const response = await fetch("http://localhost:3000/users", { signal });
         if (!response.ok) {
-          throw new Error('Failed to fetch users');
+          throw new Error("Failed to fetch users");
         }
         const data = await response.json();
-        data.data.forEach((item: User) => {
+        console.log(data);
+        data.forEach((item: User) => {
           const newUser = {
             email: item.email,
-            first_name: item.first_name
+            firstName: item.firstName,
           };
           setUser((oldUserList) => [...oldUserList, newUser]);
         });
       } catch (error) {
-        console.error('Error fetching users:', error);
+        console.error("Error fetching users:", error);
       }
     };
     getUsers();
@@ -68,21 +73,25 @@ function App() {
   }, []);
 
   useEffect(() => {
-    localStorage.setItem('logged', JSON.stringify(isLogged))
+    localStorage.setItem("logged", JSON.stringify(isLogged));
   }, [isLogged]);
 
   return (
-    <Router>
-      <UserContext.Provider value={{ users, setUser, isLogged, setLogged }}>
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Signup />} />
-          <Route path="/users" element={<Users />}></Route>
-          <Route path="/profile" element={<Profile />}></Route>
-        </Routes>
-      </UserContext.Provider>
-    </Router>
+    <>
+      <Router>
+        <UserContext.Provider value={{ users, setUser, isLogged, setLogged }}>
+          <ToastContext.Provider value={{ showToast, setShowToast }}>
+            <Navbar />
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/login" element={<Signup />} />
+              <Route path="/users" element={<Users />}></Route>
+              <Route path="/profile" element={<Profile />}></Route>
+            </Routes>
+          </ToastContext.Provider>
+        </UserContext.Provider>
+      </Router>
+    </>
   );
 }
 

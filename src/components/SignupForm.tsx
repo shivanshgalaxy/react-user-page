@@ -1,5 +1,5 @@
-import {ChangeEvent, FormEvent, useContext, useState} from "react";
-import {User, UserContext} from "../App";
+import { ChangeEvent, FormEvent, useContext, useState } from "react";
+import { User, UserContext } from "../App";
 import { Form, Button } from "react-bootstrap";
 
 interface Props {
@@ -9,7 +9,7 @@ interface Props {
 }
 
 function SignupForm({ onUserChange, onClick, children }: Props) {
-  const { isLogged, setLogged } = useContext(UserContext)
+  const { isLogged, setLogged } = useContext(UserContext);
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
 
@@ -18,12 +18,26 @@ function SignupForm({ onUserChange, onClick, children }: Props) {
 
     const newUser: User = {
       email: email,
-      first_name: firstName,
+      firstName: firstName,
     };
-    localStorage.setItem('firstName', JSON.stringify(firstName));
-    localStorage.setItem('email', JSON.stringify(email));
+    localStorage.setItem("firstName", JSON.stringify(firstName));
+    localStorage.setItem("email", JSON.stringify(email));
     setLogged(true);
     onUserChange(newUser);
+
+    fetch("http://localhost:3000/users", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        firstName: firstName,
+        email: email
+      })
+    }).then( res => {
+      return res.json();
+    }).then( data => {
+      console.log(data)
+    }).catch(error => console.error(error));
+
     onClick();
   };
 
