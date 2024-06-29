@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button, Card, Col, Container, Row, Image } from "react-bootstrap";
 
-function Profile() {
+function ProfilePage() {
   const [firstName, setFirstName] = useState(
       JSON.parse(localStorage.getItem("firstName") || '""'),
   );
@@ -52,4 +52,4 @@ function Profile() {
   );
 }
 
-export default Profile;
+export default ProfilePage;

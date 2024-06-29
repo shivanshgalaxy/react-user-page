@@ -6,12 +6,15 @@ interface Props {
   onUserChange: (user: User) => void;
   onClick: () => void;
   children: string;
+  isSuccess: boolean;
 }
 
-function SignupForm({ onUserChange, onClick, children }: Props) {
+function SignupForm({ onUserChange, onClick, children, isSuccess }: Props) {
   const { isLogged, setLogged } = useContext(UserContext);
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
+  const [loginSuccess, setLoginSuccess] = useState(true);
+
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
@@ -20,24 +23,13 @@ function SignupForm({ onUserChange, onClick, children }: Props) {
       email: email,
       firstName: firstName,
     };
+
     localStorage.setItem("firstName", JSON.stringify(firstName));
     localStorage.setItem("email", JSON.stringify(email));
-    setLogged(true);
+    console.log(isSuccess)
+    isSuccess && setLogged(true);
+
     onUserChange(newUser);
-
-    fetch("http://localhost:3000/users", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        firstName: firstName,
-        email: email
-      })
-    }).then( res => {
-      return res.json();
-    }).then( data => {
-      console.log(data)
-    }).catch(error => console.error(error));
-
     onClick();
   };
 

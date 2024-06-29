@@ -8,12 +8,11 @@ import React, {
   useEffect,
 } from "react";
 import Navbar from "./components/SiteNavbar";
-import Signup from "./pages/Signup";
-import Users from "./pages/Users";
-import Home from "./pages/Home";
-import Profile from "./pages/Profile";
+import SignupPage from "./pages/SignupPage";
+import UsersPage from "./pages/UsersPage";
+import HomePage from "./pages/HomePage";
+import ProfilePage from "./pages/ProfilePage";
 import { ToastContext } from "./ToastContext";
-import SignOutToast from "./components/SignOutToast";
 
 interface UserContextType {
   users: User[];
@@ -42,35 +41,6 @@ function App() {
     return loggedStatus === "true";
   });
 
-  useEffect(() => {
-    const abortController = new AbortController();
-    const signal = abortController.signal;
-
-    const getUsers = async () => {
-      try {
-        const response = await fetch("http://localhost:3000/users", { signal });
-        if (!response.ok) {
-          throw new Error("Failed to fetch users");
-        }
-        const data = await response.json();
-        console.log(data);
-        data.forEach((item: User) => {
-          const newUser = {
-            email: item.email,
-            firstName: item.firstName,
-          };
-          setUser((oldUserList) => [...oldUserList, newUser]);
-        });
-      } catch (error) {
-        console.error("Error fetching users:", error);
-      }
-    };
-    getUsers();
-
-    return () => {
-      abortController.abort();
-    };
-  }, []);
 
   useEffect(() => {
     localStorage.setItem("logged", JSON.stringify(isLogged));
@@ -83,10 +53,10 @@ function App() {
           <ToastContext.Provider value={{ showToast, setShowToast }}>
             <Navbar />
             <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/login" element={<Signup />} />
-              <Route path="/users" element={<Users />}></Route>
-              <Route path="/profile" element={<Profile />}></Route>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/login" element={<SignupPage />} />
+              <Route path="/users" element={<UsersPage />}></Route>
+              <Route path="/profile" element={<ProfilePage />}></Route>
             </Routes>
           </ToastContext.Provider>
         </UserContext.Provider>

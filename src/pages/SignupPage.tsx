@@ -1,14 +1,17 @@
-import React, { useContext, useEffect, useState } from "react";
-import { UserContext, User } from "../App";
+import React, { useEffect, useState } from "react";
+import { User } from "../App";
 import SignupForm from "../components/SignupForm";
 import Loading from "../components/Loading";
 import SignupSuccessModal from "../components/SignupSuccessModal";
 import { useNavigate } from "react-router-dom";
+import signupSuccessModal from "../components/SignupSuccessModal";
+// import {useGetUserDetails} from "../components/GetUserDetails";
 
-function Signup() {
-  const { users, setUser } = useContext(UserContext);
+
+function SignupPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [signupSuccess, setSignupSuccess] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -30,25 +33,29 @@ function Signup() {
           email: newUser.email
         })
       });
+      if(!response.ok) {
+        setSignupSuccess(false);
+      }
+
     } catch (err) {
       console.log(err);
     }
+
   };
 
   const handleUserChange = (newUser: User) => {
     postUser(newUser);
-    setUser((oldUserList) => [...oldUserList, newUser]);
   };
 
   const handleSignup = async () => {
     setIsLoading(true);
     await new Promise((resolve) => setTimeout(resolve, 1000));
     setIsLoading(false);
-    setShowModal(true); // Show the modal when the signup process is finished
+    signupSuccess ? setShowModal(true) : setShowModal(false); // Show the modal when the signup process is finished
   };
 
   const handleClose = () => {
-    navigate("/profile");
+    signupSuccess ? navigate("/profile") : navigate("/");
     setShowModal(false);
   }; // Hide the modal when it's closed
 
@@ -57,14 +64,14 @@ function Signup() {
   }
 
   return (
-    <div className="input-form-container mt-3 mb-5">
-      <h2>Register</h2>
-      <SignupForm onUserChange={handleUserChange} onClick={handleSignup}>
-        Sign up
-      </SignupForm>
-      <SignupSuccessModal show={showModal} onHide={handleClose} />
-    </div>
+        <div className="input-form-container mt-3 mb-5">
+          <h2>Register</h2>
+          <SignupForm onUserChange={handleUserChange} onClick={handleSignup} isSuccess={signupSuccess}>
+            Sign up
+          </SignupForm>
+          <SignupSuccessModal show={showModal} onHide={handleClose} isSuccess={signupSuccess}/>
+        </div>
   );
 }
 
-export default Signup;
+export default SignupPage;

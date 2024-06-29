@@ -1,4 +1,4 @@
-function Home() {
+function HomePage() {
   return (
     <>
       <div className="container d-flex align-items-center flex-column mt-5">
@@ -25,4 +25,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default HomePage;
