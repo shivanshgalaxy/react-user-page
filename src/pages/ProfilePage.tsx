@@ -10,25 +10,23 @@ function ProfilePage() {
   );
 
   const handleEdit = () => {
-    // Logic to edit the information
+
   };
 
   return (
       <Container className="mt-5">
         <Row className="justify-content-md-center">
           <Col md="auto">
-            <Card>
+            <Card style={{ width: '18rem' }}>
               <Card.Header as="h5">Your profile</Card.Header>
               <Card.Body>
-                <Row className="align-items-center">
-                  <Col md="4">
-                    <Image
-                        src="icon.jpg"
-                        roundedCircle
-                        fluid
-                    />
-                  </Col>
-                  <Col md="8">
+               <Image
+                    src="icon.jpg"
+                    roundedCircle
+                    fluid
+                />
+                <Row className="align-items-center mt-3">
+                  <Col md="10">
                     <Card.Title>Welcome, {firstName}</Card.Title>
                     <Card.Text>
                       <strong>Email:</strong> {email}

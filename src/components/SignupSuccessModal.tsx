@@ -1,24 +1,27 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Modal, Button } from "react-bootstrap";
+import { SignupSuccessContext } from "../pages/SignupPage";
 
-interface SignupSuccessModalProps {
+interface Props {
   show: boolean;
   onHide: () => void;
-  isSuccess: boolean;
 }
 
-const SignupSuccessModal: React.FC<SignupSuccessModalProps> = ({
-  show,
-  onHide,
-    isSuccess
-}) => {
+function SignupSuccessModal({ show, onHide }: Props) {
+  const { signupSuccess } = useContext(SignupSuccessContext);
   return (
     <Modal show={show} onHide={onHide} centered>
       <Modal.Header closeButton>
-        <Modal.Title>{isSuccess ? "Signup Successful" : "Signup Unsuccessful"}</Modal.Title>
+        <Modal.Title>
+          {signupSuccess ? "Signup Successful" : "Signup Unsuccessful"}
+        </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <p>{isSuccess ? "You have successfully signed up!" : "User already exists"}</p>
+        <p>
+          {signupSuccess
+            ? "You have successfully signed up!"
+            : "User already exists"}
+        </p>
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={onHide}>
@@ -27,6 +30,6 @@ const SignupSuccessModal: React.FC<SignupSuccessModalProps> = ({
       </Modal.Footer>
     </Modal>
   );
-};
+}
 
 export default SignupSuccessModal;

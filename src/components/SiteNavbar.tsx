@@ -1,23 +1,15 @@
 import { Link, useNavigate } from "react-router-dom";
-import {
-  Navbar,
-  Nav,
-  Container,
-  NavDropdown,
-  Toast,
-  ToastContainer,
-} from "react-bootstrap";
+import { Navbar, Nav, Container } from "react-bootstrap";
 import React, { useContext, useEffect } from "react";
 import { UserContext } from "../App";
 import SignOutToast from "./SignOutToast";
-import {ToastContext} from "../ToastContext";
+import { ToastContext } from "../ToastContext";
 
 function SiteNavbar() {
   const { isLogged, setLogged } = useContext(UserContext);
   const { showToast, setShowToast } = useContext(ToastContext);
   const navigate = useNavigate();
   const handleOnClick = () => {
-    console.log("Clicked");
     localStorage.removeItem("email");
     localStorage.removeItem("firstName");
     localStorage.removeItem("logged");
@@ -47,21 +39,21 @@ function SiteNavbar() {
           <Navbar.Toggle aria-controls="navbar-nav" />
           <Navbar.Collapse id="navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link as={Link} to="/" active>
+              <Nav.Link as={Link} to="/">
                 Home
               </Nav.Link>
-              <Nav.Link as={Link} to="/users" active>
+              <Nav.Link as={Link} to="/users">
                 View users
               </Nav.Link>
             </Nav>
             <Nav className="ml-auto">
               {!isLogged && (
-                <Nav.Link as={Link} to="/login" active>
+                <Nav.Link as={Link} to="/login">
                   Sign up
                 </Nav.Link>
               )}
               {isLogged && (
-                <Nav.Link as={Link} to="/profile" active>
+                <Nav.Link as={Link} to="/profile">
                   Profile
                 </Nav.Link>
               )}
@@ -72,8 +64,7 @@ function SiteNavbar() {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      <SignOutToast show={showToast} setShowToast={setShowToast}/>
-
+      <SignOutToast show={showToast} setShowToast={setShowToast} />
     </>
   );
 }

@@ -1,20 +1,17 @@
 import { ChangeEvent, FormEvent, useContext, useState } from "react";
 import { User, UserContext } from "../App";
 import { Form, Button } from "react-bootstrap";
+import { SignupSuccessContext } from "../pages/SignupPage";
 
 interface Props {
-  onUserChange: (user: User) => void;
-  onClick: () => void;
+  onUserSubmit: (user: User) => Promise<unknown>;
   children: string;
-  isSuccess: boolean;
 }
 
-function SignupForm({ onUserChange, onClick, children, isSuccess }: Props) {
-  const { isLogged, setLogged } = useContext(UserContext);
+function SignupForm({ onUserSubmit, children }: Props) {
+  const { signupSuccess } = useContext(SignupSuccessContext);
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
-  const [loginSuccess, setLoginSuccess] = useState(true);
-
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
@@ -24,13 +21,12 @@ function SignupForm({ onUserChange, onClick, children, isSuccess }: Props) {
       firstName: firstName,
     };
 
-    localStorage.setItem("firstName", JSON.stringify(firstName));
-    localStorage.setItem("email", JSON.stringify(email));
-    console.log(isSuccess)
-    isSuccess && setLogged(true);
-
-    onUserChange(newUser);
-    onClick();
+    onUserSubmit(newUser)
+      .then(() => {
+        localStorage.setItem("firstName", JSON.stringify(firstName));
+        localStorage.setItem("email", JSON.stringify(email));
+      })
+      .catch((err) => console.error(err));
   };
 
   const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
