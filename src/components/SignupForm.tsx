@@ -1,4 +1,4 @@
-import { User, UserContext } from "../App";
+import { User } from "../App";
 import { Form, Button } from "react-bootstrap";
 import { useFormik } from "formik";
 import { userSchema } from "../schemas";

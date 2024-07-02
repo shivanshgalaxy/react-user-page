@@ -78,7 +78,7 @@ function UsersPage() {
               <tr>
                 <th>#</th>
                 <th>Name</th>
-                <th>E-mail</th>
+                <th>Email</th>
               </tr>
             </thead>
             <tbody>
@@ -95,8 +95,8 @@ function UsersPage() {
         <Pagination className="d-flex justify-content-center">
           {numberOfPages >= 3 && <Pagination.First onClick={onFirstClick} />}
           <Pagination.Prev onClick={onPrevClick} />
-          {pages.map((pageNumber) => (
-            <Pagination.Item
+          {pages.map((pageNumber, index) => (
+            <Pagination.Item key={index}
               active={currentPage === pageNumber}
               onClick={() => onSelectedClick(pageNumber)}
             >

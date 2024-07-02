@@ -17,7 +17,7 @@ function SignupPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [signupSuccess, setSignupSuccess] = useState(true);
-  const { isLogged, setLogged } = useContext(UserContext);
+  const { setLogged } = useContext(UserContext);
 
   const navigate = useNavigate();
 
@@ -37,7 +37,7 @@ function SignupPage() {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            firstName: newUser.firstName,
+            name: newUser.firstName,
             email: newUser.email,
           }),
         });
