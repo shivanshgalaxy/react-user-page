@@ -1,39 +1,39 @@
 @import "https://fonts.googleapis.com/css2?family=NTR&display=swap";
 
 :root {
-    --bs-body-font-family:"NTR", sans-serif;
+  --bs-body-font-family: "NTR", sans-serif;
 }
 
 .input-form-container {
-    max-width: 45rem;
-    margin: auto;
+  max-width: 45rem;
+  margin: auto;
 }
 
 .user-list {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    list-style-type: none;
-    padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  list-style-type: none;
+  padding: 0;
 }
 
 .user-item {
-    text-align: center;
-    border: 1px solid #ccc;
-    padding: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
+  text-align: center;
+  border: 1px solid #ccc;
+  padding: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
 }
 
 #toast-container {
-    margin-top: 4.5rem;
-    margin-right: 2rem;
+  margin-top: 4.5rem;
+  margin-right: 2rem;
 }
 
-.navbar-svg svg{
-    transition: fill 0.3s ease;
+.navbar-svg svg {
+  transition: fill 0.3s ease;
 }
 
-.navbar-svg:hover svg{
-    fill: #d3d3d3;
+.navbar-svg:hover svg {
+  fill: #d3d3d3;
 }

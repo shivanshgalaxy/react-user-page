@@ -63,7 +63,9 @@ function ProfilePage() {
                   {isEditing ? (
                     <Form className="text-body-emphasis">
                       <Form.Group controlId="formFirstName">
-                        <Form.Label style={{ fontWeight: 'bold' }}>Enter new first name:</Form.Label>
+                        <Form.Label style={{ fontWeight: "bold" }}>
+                          Enter new first name:
+                        </Form.Label>
                         <Form.Control
                           className="text-center"
                           type="text"

@@ -41,7 +41,6 @@ function App() {
     return loggedStatus === "true";
   });
 
-
   useEffect(() => {
     localStorage.setItem("logged", JSON.stringify(isLogged));
   }, [isLogged]);

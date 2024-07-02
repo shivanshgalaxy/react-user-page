@@ -4,12 +4,12 @@ import { Pagination, Table } from "react-bootstrap";
 
 function UsersPage() {
   const { users, setUser } = useContext(UserContext);
-  const [ currentPage, setCurrentPage ] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 15;
   const lastIndex = itemsPerPage * currentPage;
   const firstIndex = lastIndex - itemsPerPage;
-  const numberOfPages = Math.ceil(users.length/itemsPerPage);
-  const pages = [...Array(numberOfPages + 1).keys()].slice(1)
+  const numberOfPages = Math.ceil(users.length / itemsPerPage);
+  const pages = [...Array(numberOfPages + 1).keys()].slice(1);
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -44,27 +44,27 @@ function UsersPage() {
   }, []);
 
   function onFirstClick() {
-      setCurrentPage(current => 1);
+    setCurrentPage((current) => 1);
   }
 
   function onPrevClick() {
     if (currentPage > 1) {
-      setCurrentPage(current => current - 1);
+      setCurrentPage((current) => current - 1);
     }
   }
 
   function onSelectedClick(pageNumber: number) {
-    setCurrentPage(current => pageNumber)
+    setCurrentPage((current) => pageNumber);
   }
 
   function onNextClick() {
     if (currentPage < numberOfPages) {
-      setCurrentPage(current => current + 1);
+      setCurrentPage((current) => current + 1);
     }
   }
 
   function onLastClick() {
-    setCurrentPage(current => numberOfPages);
+    setCurrentPage((current) => numberOfPages);
   }
 
   return (
@@ -74,7 +74,6 @@ function UsersPage() {
         {users.length === 0 && <div>There are no users yet :(</div>}
         {users.length !== 0 && (
           <Table striped responsive>
-
             <thead>
               <tr>
                 <th>#</th>
@@ -94,15 +93,18 @@ function UsersPage() {
           </Table>
         )}
         <Pagination className="d-flex justify-content-center">
-          {numberOfPages >= 3 && <Pagination.First onClick={onFirstClick}/>}
-          <Pagination.Prev onClick={onPrevClick}/>
+          {numberOfPages >= 3 && <Pagination.First onClick={onFirstClick} />}
+          <Pagination.Prev onClick={onPrevClick} />
           {pages.map((pageNumber) => (
-            <Pagination.Item active={currentPage === pageNumber} onClick={() => onSelectedClick(pageNumber)}>
+            <Pagination.Item
+              active={currentPage === pageNumber}
+              onClick={() => onSelectedClick(pageNumber)}
+            >
               {pageNumber}
             </Pagination.Item>
           ))}
-          <Pagination.Next onClick={onNextClick}/>
-          {numberOfPages >= 3 && <Pagination.Last onClick={onLastClick}/>}
+          <Pagination.Next onClick={onNextClick} />
+          {numberOfPages >= 3 && <Pagination.Last onClick={onLastClick} />}
         </Pagination>
       </div>
     </>
