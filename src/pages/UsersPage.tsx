@@ -3,7 +3,6 @@ import { User, UserContext } from "../App";
 import { Table } from "react-bootstrap";
 import { Simulate } from "react-dom/test-utils";
 import abort = Simulate.abort;
-// import {GetUserDetails} from "../components/GetUserDetails";
 
 function UsersPage() {
   const { users, setUser } = useContext(UserContext);
@@ -46,7 +45,7 @@ function UsersPage() {
         <h2>Our users:</h2>
         {users.length === 0 && <div>There are no users yet :(</div>}
         {users.length !== 0 && (
-          <Table>
+          <Table striped>
             <thead>
               <tr>
                 <th>#</th>
@@ -56,7 +55,7 @@ function UsersPage() {
             </thead>
             <tbody>
               {users.map((user, index) => (
-                <tr>
+                <tr key={index}>
                   <td>{index + 1}</td>
                   <td>{user.firstName}</td>
                   <td>{user.email}</td>

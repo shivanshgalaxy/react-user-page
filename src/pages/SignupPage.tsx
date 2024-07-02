@@ -41,7 +41,7 @@ function SignupPage() {
             email: newUser.email,
           }),
         });
-        if (!response.ok) {
+        if (response.ok) {
           setSignupSuccess(true);
           setLogged(true);
           resolve("Sign up successful");

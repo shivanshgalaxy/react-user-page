@@ -1,19 +1,13 @@
-.input-form-container {
-    max-width: 45rem; /* Adjust this value as needed */
-    margin: auto;
+@import "https://fonts.googleapis.com/css2?family=NTR&display=swap";
+
+:root {
+    --bs-body-font-family:"NTR", sans-serif;
 }
 
-/*.user-list {*/
-/*    display: flex;*/
-/*    list-style: none;*/
-/*    justify-content: space-around;*/
-/*    flex-wrap: wrap;*/
-/*    gap: 5px;*/
-/*}*/
-
-/*.user-list li {*/
-/*    text-align: center;*/
-/*}*/
+.input-form-container {
+    max-width: 45rem;
+    margin: auto;
+}
 
 .user-list {
     display: grid;
@@ -34,4 +28,12 @@
 #toast-container {
     margin-top: 4.5rem;
     margin-right: 2rem;
+}
+
+.navbar-svg svg{
+    transition: fill 0.3s ease;
+}
+
+.navbar-svg:hover svg{
+    fill: #d3d3d3;
 }
