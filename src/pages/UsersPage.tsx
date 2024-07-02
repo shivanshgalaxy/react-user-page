@@ -1,11 +1,15 @@
 import React, { useContext, useEffect, useState } from "react";
 import { User, UserContext } from "../App";
-import { Table } from "react-bootstrap";
-import { Simulate } from "react-dom/test-utils";
-import abort = Simulate.abort;
+import { Pagination, Table } from "react-bootstrap";
 
 function UsersPage() {
   const { users, setUser } = useContext(UserContext);
+  const [ currentPage, setCurrentPage ] = useState(1);
+  const itemsPerPage = 15;
+  const lastIndex = itemsPerPage * currentPage;
+  const firstIndex = lastIndex - itemsPerPage;
+  const numberOfPages = Math.ceil(users.length/itemsPerPage);
+  const pages = [...Array(numberOfPages + 1).keys()].slice(1)
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -39,13 +43,38 @@ function UsersPage() {
     };
   }, []);
 
+  function onFirstClick() {
+      setCurrentPage(current => 1);
+  }
+
+  function onPrevClick() {
+    if (currentPage > 1) {
+      setCurrentPage(current => current - 1);
+    }
+  }
+
+  function onSelectedClick(pageNumber: number) {
+    setCurrentPage(current => pageNumber)
+  }
+
+  function onNextClick() {
+    if (currentPage < numberOfPages) {
+      setCurrentPage(current => current + 1);
+    }
+  }
+
+  function onLastClick() {
+    setCurrentPage(current => numberOfPages);
+  }
+
   return (
-    <div className="input-form-container">
-      <div className="container">
+    <>
+      <div className="input-form-container" style={{ maxWidth: "60rem" }}>
         <h2>Our users:</h2>
         {users.length === 0 && <div>There are no users yet :(</div>}
         {users.length !== 0 && (
-          <Table striped>
+          <Table striped responsive>
+
             <thead>
               <tr>
                 <th>#</th>
@@ -54,9 +83,9 @@ function UsersPage() {
               </tr>
             </thead>
             <tbody>
-              {users.map((user, index) => (
+              {users.slice(firstIndex, lastIndex).map((user, index) => (
                 <tr key={index}>
-                  <td>{index + 1}</td>
+                  <td>{firstIndex + index + 1}</td>
                   <td>{user.firstName}</td>
                   <td>{user.email}</td>
                 </tr>
@@ -64,8 +93,19 @@ function UsersPage() {
             </tbody>
           </Table>
         )}
+        <Pagination className="d-flex justify-content-center">
+          {numberOfPages >= 3 && <Pagination.First onClick={onFirstClick}/>}
+          <Pagination.Prev onClick={onPrevClick}/>
+          {pages.map((pageNumber) => (
+            <Pagination.Item active={currentPage === pageNumber} onClick={() => onSelectedClick(pageNumber)}>
+              {pageNumber}
+            </Pagination.Item>
+          ))}
+          <Pagination.Next onClick={onNextClick}/>
+          {numberOfPages >= 3 && <Pagination.Last onClick={onLastClick}/>}
+        </Pagination>
       </div>
-    </div>
+    </>
   );
 }
 

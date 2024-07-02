@@ -24,7 +24,6 @@ function SiteNavbar() {
       <Navbar
         bg="dark"
         variant="dark"
-        expand="md"
         sticky="top"
         className="border-bottom border-body"
       >
