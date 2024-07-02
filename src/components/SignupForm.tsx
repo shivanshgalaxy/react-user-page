@@ -40,20 +40,20 @@ function SignupForm({ onUserSubmit, children }: Props) {
 
   return (
     <Form className="mt-3" onSubmit={handleSubmit}>
-      <Form.Group className="mb-3" controlId="inputEmail1">
-        <Form.Control
-          type="email"
-          value={email}
-          onChange={handleEmailChange}
-          placeholder="Email"
-        />
-      </Form.Group>
       <Form.Group className="mb-3" controlId="inputUsername">
         <Form.Control
           type="text"
           value={firstName}
           onChange={handleNameChange}
           placeholder="Name"
+        />
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="inputEmail1">
+        <Form.Control
+          type="email"
+          value={email}
+          onChange={handleEmailChange}
+          placeholder="Email"
         />
       </Form.Group>
       <Button type="submit" variant="primary">
@@ -143,4 +143,3 @@ export default SignupForm;
 // };
 //
 // export default SignupForm;
-
