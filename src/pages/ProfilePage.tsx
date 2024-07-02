@@ -77,6 +77,10 @@ function ProfilePage() {
     setIsEditing(true);
   };
 
+  const exitEdit = () => {
+    setIsEditing(false);
+  }
+
   const handleSave = async () => {
     localStorage.setItem("firstName", JSON.stringify(newFirstName));
     setFirstName(newFirstName);
@@ -88,7 +92,7 @@ function ProfilePage() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ firstName: newFirstName }),
+        body: JSON.stringify({ firstName: newFirstName, email: email }),
       });
 
       if (!response.ok) {
@@ -122,11 +126,16 @@ function ProfilePage() {
                       </Form.Group>
                       <Button
                         variant="primary"
-                        className="mt-3"
+                        className="mt-3 me-1"
                         onClick={handleSave}
                       >
                         Save
                       </Button>
+                      <Button
+                        variant="primary"
+                        className="mt-3"
+                        onClick={exitEdit}
+                      > Cancel </Button>
                     </Form>
                   ) : (
                     <>
