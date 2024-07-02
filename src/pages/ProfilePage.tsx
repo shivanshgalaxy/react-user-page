@@ -25,7 +25,7 @@ function ProfilePage() {
 
   const exitEdit = () => {
     setIsEditing(false);
-  }
+  };
 
   const handleSave = async () => {
     localStorage.setItem("firstName", JSON.stringify(newFirstName));
@@ -54,17 +54,18 @@ function ProfilePage() {
     <Container className="mt-5">
       <Row className="justify-content-md-center">
         <Col md="auto">
-          <Card style={{ width: "18rem" }} className="text-center">
+          <Card style={{ width: "25rem" }} className="text-center">
             <Card.Header as="h5">Your profile</Card.Header>
             <Card.Body>
               <Image src="icon.jpg" roundedCircle fluid />
-              <Row className="align-items-center mt-3">
+              <Row className="align-items-center mt-3 justify-content-md-center">
                 <Col md="10">
                   {isEditing ? (
-                    <Form>
+                    <Form className="text-body-emphasis">
                       <Form.Group controlId="formFirstName">
-                        <Form.Label>First Name</Form.Label>
+                        <Form.Label style={{ fontWeight: 'bold' }}>Enter new first name:</Form.Label>
                         <Form.Control
+                          className="text-center"
                           type="text"
                           value={newFirstName}
                           onChange={(e) => setNewFirstName(e.target.value)}
@@ -81,7 +82,10 @@ function ProfilePage() {
                         variant="primary"
                         className="mt-3"
                         onClick={exitEdit}
-                      > Cancel </Button>
+                      >
+                        {" "}
+                        Cancel{" "}
+                      </Button>
                     </Form>
                   ) : (
                     <>
