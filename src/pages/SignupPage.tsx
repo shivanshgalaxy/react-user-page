@@ -37,7 +37,7 @@ function SignupPage() {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            name: newUser.firstName,
+            firstName: newUser.firstName,
             email: newUser.email,
           }),
         });

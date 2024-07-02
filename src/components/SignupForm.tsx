@@ -36,7 +36,6 @@ const SignupForm = ({ onUserSubmit, children }: Props) => {
       validationSchema: userSchema,
     });
 
-  console.log(errors);
   return (
     <Form noValidate className="mt-3" onSubmit={handleSubmit}>
       <Form.Group className="mb-3" controlId="inputUsername">

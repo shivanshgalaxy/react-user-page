@@ -37,3 +37,7 @@
 .navbar-svg:hover svg {
   fill: #d3d3d3;
 }
+
+.navbar-active svg {
+  fill: #d3d3d3;
+}
