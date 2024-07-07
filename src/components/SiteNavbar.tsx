@@ -30,7 +30,7 @@ function SiteNavbar() {
         <Container>
           <Navbar.Brand as={Link} to="/">
             <img
-              src="../../public/icon3.png"
+              src="/icon3.png"
               alt="Logo"
               width="40"
               height="40"
