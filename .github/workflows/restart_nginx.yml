@@ -1,0 +1,23 @@
+name: Restart Nginx
+
+on: [push]
+
+jobs:
+  restart-nginx:
+    runs-on: ubuntu-latest
+
+    env:
+      REMOTE_USER: sh
+      REMOTE_HOST: 223.178.209.112
+
+    steps:
+      - name: Restart Nginx
+        run: |
+          ssh $REMOTE_USER@$REMOTE_HOST "sudo systemctl restart nginx"
+        env:
+          SSH_KEY: ${{ secrets.GITKEY }}
+
+      - name: Add SSH key
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.GITKEY }}
