@@ -1,14 +1,16 @@
 import React, { useContext, useEffect, useState } from "react";
 import { User, UserContext } from "../App";
 import { Pagination, Table } from "react-bootstrap";
+import {number} from "yup";
 
 function UsersPage() {
+  const [length, setLength]  = useState( -1 );
   const { users, setUser } = useContext(UserContext);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 15;
   const lastIndex = itemsPerPage * currentPage;
   const firstIndex = lastIndex - itemsPerPage;
-  const numberOfPages = Math.ceil(users.length / itemsPerPage);
+  const numberOfPages = Math.ceil(length / itemsPerPage);
   const pages = [...Array(numberOfPages + 1).keys()].slice(1);
 
   useEffect(() => {
@@ -16,15 +18,20 @@ function UsersPage() {
     const signal = abortController.signal;
     const getUsers = async () => {
       try {
-        const response = await fetch("http://localhost:3000/users", {
-          signal,
-        });
+        console.log(`http://localhost:3000/users/${lastIndex - itemsPerPage}/${itemsPerPage}`);
+        const response = await fetch(
+          `http://localhost:3000/users/${lastIndex - itemsPerPage}/${itemsPerPage}`,
+          {
+            signal,
+          },
+        );
         if (!response.ok) {
           throw new Error("Failed to fetch users");
         }
         const data = await response.json();
         console.log(data);
-        data.forEach((item: User) => {
+        setLength(data.length);
+        data.users.forEach((item: User) => {
           const newUser = {
             email: item.email,
             firstName: item.firstName,
@@ -41,7 +48,7 @@ function UsersPage() {
       setUser([]);
       abortController.abort();
     };
-  }, []);
+  }, [currentPage]);
 
   function onFirstClick() {
     setCurrentPage((current) => 1);
@@ -82,7 +89,7 @@ function UsersPage() {
               </tr>
             </thead>
             <tbody>
-              {users.slice(firstIndex, lastIndex).map((user, index) => (
+              {users.map((user, index) => (
                 <tr key={index}>
                   <td>{firstIndex + index + 1}</td>
                   <td>{user.firstName}</td>
