@@ -1,4 +1,4 @@
-name: Deploy to Nginx Server
+name: Node Continuous Integration
 
 on:
   push:
