@@ -30,10 +30,10 @@ jobs:
           REMOTE_DIR: /var/www/html
         run: |
           mkdir -p ~/.ssh
-          ssh-keyscan -H -t rsa ${{ env.REMOTE_HOST }}  >> ~/.ssh/known_hosts
+          ssh-keyscan -H -t rsa ${{ REMOTE_HOST }}  >> ~/.ssh/known_hosts
           
       - name: Copy files via SCP
         run: |
-          scp -r ./dist/* ${{ env.REMOTE_USER }}@${{ env.REMOTE_HOST }}:${{ env.REMOTE_DIR }}
+          scp -r ./dist/* ${{ REMOTE_USER }}@${{ REMOTE_HOST }}:${{ REMOTE_DIR }}
         env:
           SSH_KEY: ${{ secrets.GITKEY }}
