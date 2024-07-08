@@ -1,3 +1,32 @@
+# name: Restart Nginx
+
+# on: [push]
+
+# jobs:
+#   restart-nginx:
+#     runs-on: ubuntu-latest
+
+#     env:
+#       REMOTE_USER: ubuntu
+#       REMOTE_HOST: 13.201.81.158
+
+#     steps:
+#       - name: Add SSH key
+#         uses: webfactory/ssh-agent@v0.5.3
+#         with:
+#           ssh-private-key: ${{ secrets.GITKEY }}
+
+#       - name: Add remote host to known_hosts
+#         run: |
+#           mkdir -p ~/.ssh
+#           ssh-keyscan $REMOTE_HOST >> ~/.ssh/known_hosts
+
+#       - name: Restart Nginx
+#         run: |
+#           ssh $REMOTE_USER@$REMOTE_HOST "sudo systemctl restart nginx"
+#         env:
+#           SSH_KEY: ${{ secrets.GITKEY }}
+
 name: Restart Nginx
 
 on: [push]
@@ -16,13 +45,30 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.GITKEY }}
 
-      - name: Add remote host to known_hosts
+      - name: Debug known_hosts
         run: |
+          echo "Creating .ssh directory if it does not exist"
           mkdir -p ~/.ssh
-          ssh-keyscan $REMOTE_HOST >> ~/.ssh/known_hosts
+          echo "Adding remote host to known_hosts"
+          ssh-keyscan -H $REMOTE_HOST >> ~/.ssh/known_hosts || { echo "ssh-keyscan failed"; exit 1; }
+          echo "Contents of known_hosts:"
+          cat ~/.ssh/known_hosts
+        shell: bash
+
+      - name: Verify known_hosts
+        run: |
+          echo "Verifying known_hosts file"
+          cat ~/.ssh/known_hosts
+        shell: bash
+
+      - name: Check SSH connection
+        run: |
+          echo "Checking SSH connection"
+          ssh -o StrictHostKeyChecking=no $REMOTE_USER@$REMOTE_HOST "echo 'SSH connection successful'" || { echo "SSH connection failed"; exit 1; }
+        shell: bash
 
       - name: Restart Nginx
         run: |
-          ssh $REMOTE_USER@$REMOTE_HOST "sudo systemctl restart nginx"
-        env:
-          SSH_KEY: ${{ secrets.GITKEY }}
+          echo "Restarting Nginx"
+          ssh $REMOTE_USER@$REMOTE_HOST "sudo systemctl restart nginx" || { echo "Failed to restart Nginx"; exit 1; }
+        shell: bash
