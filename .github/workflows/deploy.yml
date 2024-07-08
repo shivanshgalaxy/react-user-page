@@ -31,10 +31,13 @@ jobs:
         run: |
           mkdir -p ~/.ssh
           ssh-keyscan -H -t rsa $REMOTE_HOST  >> ~/.ssh/known_hosts
+
+      - name: Env test
+        run: |
+          echo "$REMOTE_USER $REMOTE_HOST $REMOTE_DIR"
           
       - name: Copy files via SCP
         run: |
-          echo "$REMOTE_USER $REMOTE_HOST $REMOTE_DIR"
           scp -r ./dist/* $REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR
         env:
           SSH_KEY: ${{ secrets.GITKEY }}
