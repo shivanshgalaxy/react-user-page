@@ -8,7 +8,7 @@ jobs:
 
     env:
       REMOTE_USER: ubuntu
-      REMOTE_HOST: 13.201.81.158
+      REMOTE_HOST: ec2-13-126-94-218.ap-south-1.compute.amazonaws.com
 
     steps:
       - name: Add SSH key
