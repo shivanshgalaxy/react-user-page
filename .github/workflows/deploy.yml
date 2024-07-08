@@ -33,8 +33,7 @@ jobs:
           ssh-keyscan -H -t rsa $REMOTE_HOST  >> ~/.ssh/known_hosts
           
       - name: Copy files via SCP
-
         run: |
-          scp -r ./dist/* ubuntu@ec2-13-127-148-76.ap-south-1.compute.amazonaws.com:/var/www/html
+          scp -r ./dist/* ${REMOTE_USER}@${REMOTE_HOST}:${REMOTE_DIR}
         env:
           SSH_KEY: ${{ secrets.GITKEY }}
