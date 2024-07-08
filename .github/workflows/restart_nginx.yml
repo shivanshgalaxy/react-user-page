@@ -7,8 +7,8 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      REMOTE_USER: sh
-      REMOTE_HOST: 223.178.209.112
+      REMOTE_USER: ubuntu
+      REMOTE_HOST: 13.201.81.158
 
     steps:
       - name: Restart Nginx
