@@ -34,6 +34,7 @@ jobs:
           
       - name: Copy files via SCP
         run: |
-          scp -r ./dist/* ${REMOTE_USER}@${REMOTE_HOST}:${REMOTE_DIR}
+          echo "$REMOTE_USER $REMOTE_HOST $REMOTE_DIR"
+          scp -r ./dist/* $REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR
         env:
           SSH_KEY: ${{ secrets.GITKEY }}
