@@ -18,9 +18,9 @@ function UsersPage() {
     const signal = abortController.signal;
     const getUsers = async () => {
       try {
-        console.log(`http://localhost:3000/users/${lastIndex - itemsPerPage}/${itemsPerPage}`);
+        console.log(`${import.meta.env.VITE_DATABASE_URL}${lastIndex - itemsPerPage}/${itemsPerPage}`);
         const response = await fetch(
-          `http://localhost:3000/users/${lastIndex - itemsPerPage}/${itemsPerPage}`,
+          `${import.meta.env.VITE_DATABASE_URL}${lastIndex - itemsPerPage}/${itemsPerPage}`,
           {
             signal,
           },

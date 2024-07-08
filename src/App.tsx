@@ -14,6 +14,7 @@ import HomePage from "./pages/HomePage";
 import ProfilePage from "./pages/ProfilePage";
 import { ToastContext } from "./ToastContext";
 
+
 interface UserContextType {
   users: User[];
   setUser: Dispatch<SetStateAction<User[]>>;

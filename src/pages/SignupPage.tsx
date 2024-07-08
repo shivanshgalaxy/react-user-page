@@ -31,7 +31,7 @@ function SignupPage() {
     return new Promise(async (resolve, reject) => {
       setIsLoading(true);
       try {
-        const response = await fetch("http://localhost:3000/users/", {
+        const response = await fetch(`${import.meta.env.VITE_DATABASE_URL}`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
