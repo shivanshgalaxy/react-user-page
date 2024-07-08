@@ -3,7 +3,7 @@ name: Deploy to Nginx Server
 on:
   push:
     branches:
-      - main
+      - test
 
 jobs:
   deploy:
@@ -16,12 +16,12 @@ jobs:
     - name: Set up SSH
       uses: webfactory/ssh-agent@v0.5.3
       with:
-        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+        ssh-private-key: ${{ secrets.GITKEY }}
 
     - name: Copy files via SCP
       env:
-        REMOTE_USER: your-username
-        REMOTE_HOST: your-server-ip
+        REMOTE_USER: ubuntu
+        REMOTE_HOST: 13.201.81.158
         REMOTE_DIR: /var/www/html  # Change to your web root directory
       run: |
         scp -r ./* $REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR
