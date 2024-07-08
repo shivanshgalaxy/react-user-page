@@ -1,5 +1,10 @@
 name: AWS continuous deployment
 
+env:
+  REMOTE_USER: ubuntu
+  REMOTE_HOST: ec2-13-127-148-76.ap-south-1.compute.amazonaws.com
+  REMOTE_DIR: /var/www/html
+
 on:
   push:
     branches:
@@ -24,10 +29,6 @@ jobs:
           ssh-private-key: ${{ secrets.GITKEY }}
 
       - name: Add remote host to known_hosts
-        env:
-          REMOTE_USER: ubuntu
-          REMOTE_HOST: ec2-13-127-148-76.ap-south-1.compute.amazonaws.com
-          REMOTE_DIR: /var/www/html
         run: |
           mkdir -p ~/.ssh
           ssh-keyscan -H -t rsa $REMOTE_HOST  >> ~/.ssh/known_hosts
