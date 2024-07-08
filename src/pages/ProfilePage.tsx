@@ -71,7 +71,7 @@ function ProfilePage() {
           <Card style={{ width: "25rem" }} className="text-center">
             <Card.Header as="h5">Your profile</Card.Header>
             <Card.Body>
-              <Image src="icon.jpg" roundedCircle fluid />
+              <Image src="../src/assets/profileIcon.jpg" roundedCircle fluid />
               <Row className="align-items-center mt-3 justify-content-md-center">
                 <Col md="10">
                   {isEditing ? (
