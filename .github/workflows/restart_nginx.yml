@@ -11,13 +11,18 @@ jobs:
       REMOTE_HOST: 13.201.81.158
 
     steps:
+      - name: Add SSH key
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.GITKEY }}
+
+      - name: Add remote host to known_hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan $REMOTE_HOST >> ~/.ssh/known_hosts
+
       - name: Restart Nginx
         run: |
           ssh $REMOTE_USER@$REMOTE_HOST "sudo systemctl restart nginx"
         env:
           SSH_KEY: ${{ secrets.GITKEY }}
-
-      - name: Add SSH key
-        uses: webfactory/ssh-agent@v0.5.3
-        with:
-          ssh-private-key: ${{ secrets.GITKEY }}
