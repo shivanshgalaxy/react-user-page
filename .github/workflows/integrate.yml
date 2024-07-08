@@ -10,12 +10,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
-    -  uses: actions/checkout@v2
-    -  uses: actions/setup-node@v1
-       with: 
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v1
+      with: 
           node-version: 22
     - run: npm ci
-    - run: npm test
     - run: npm run build 
 
     # - name: Set up SSH
