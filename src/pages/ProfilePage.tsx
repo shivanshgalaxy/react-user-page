@@ -46,7 +46,7 @@ function ProfilePage() {
     setIsEditing(false);
 
     try {
-      const response = await fetch("http://localhost:3000/users", {
+      const response = await fetch(`${import.meta.env.VITE_DATABASE_URL}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -71,7 +71,7 @@ function ProfilePage() {
           <Card style={{ width: "25rem" }} className="text-center">
             <Card.Header as="h5">Your profile</Card.Header>
             <Card.Body>
-              <Image src="/icon.jpg" roundedCircle fluid />
+              <Image src="/profileIcon.jpg" roundedCircle fluid />
               <Row className="align-items-center mt-3 justify-content-md-center">
                 <Col md="10">
                   {isEditing ? (
